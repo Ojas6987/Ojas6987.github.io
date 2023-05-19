@@ -63,6 +63,16 @@ This plot shows the overall distrubtion of the difference of kills at 15 minutes
 # Bivariate Analysis #
 We then wanted to do a simple explatory analysis of how win rate increases as the kill difference increases. We did some additional cleaning for this, removing repetitive date by focusing only on positive kill differences. 
 
+We decided to create a grouped table to represent this, grouping by every type of positive kill difference to find the mean wins for each kill difference. Here's the head of the table: 
+
+|   Kill_diff |   result |   killsat15 |   assistsat15 |   opp_killsat15 |   opp_assistsat15 |   gamelength |   Assist_diff |   pos_kill |   pos_ass |
+|------------:|---------:|------------:|--------------:|----------------:|------------------:|-------------:|--------------:|-----------:|----------:|
+|           0 | 0.5      |     2.61859 |       4.30929 |         2.61859 |           4.30929 |      2012.15 |       0       |          0 |  0.362179 |
+|           1 | 0.570513 |     3.30128 |       5.57532 |         2.30128 |           3.7516  |      2008.55 |       1.82372 |          1 |  0.754808 |
+|           2 | 0.745726 |     4.15812 |       6.92094 |         2.15812 |           3.63034 |      2001.08 |       3.2906  |          1 |  0.899573 |
+|           3 | 0.7557   |     5.08795 |       9.06189 |         2.08795 |           3.52117 |      1930.24 |       5.54072 |          1 |  0.960912 |
+|           4 | 0.836283 |     6.07965 |      10.4204  |         2.07965 |           3.44248 |      1881.09 |       6.97788 |          1 |  0.964602 |
+
 Here is a bar graph representing the relationship:
 <iframe src="assets/kill-diff-win-rate.html" width=800 height=600 frameBorder=0></iframe>
 
