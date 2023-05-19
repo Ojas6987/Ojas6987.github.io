@@ -109,7 +109,7 @@ We tested to see if the distrubtion of league when **killsat15** is null is the 
 
 Here's a plot representing our permutation test for the **league** column:
 
-<iframe src="assets/miss-perm.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/miss_perm.html" width=800 height=600 frameBorder=0></iframe>
 
 We also did one more test to see if the result was also affected by null values. Running a similar permutation test as before, we came to a p-value of **0.712**, illustrating that knowing the result did not say anything about the missingness of 'at15' data. With this in mind, we proceeded to our actual hypothesis test knowing we only had to handle "LPL" data. 
 
