@@ -38,6 +38,8 @@ Each represents a specific acronym for their respective league. Next, we only ke
 We additionally created 4 different columns. The first two were **Kill_diff** and **Assist_diff**. These two columns represent the killsat15 statistic for the team-opp_killsat15, and the same for assists. Since we want to know if having more kills/assists than your opponent at 15 minutes makes it more likely to win, we need to find the difference between kills for both teams. We also wanted to generalize this better for our future statistical tests, so we created two additonal columns: **pos_kill** and **pos_ass**, which are simply boolean values that indicate whether a team has more kills/assists than their opponent at 15 mins.
 
 ---
+Here's what the cleaned table looks like (first couple of rows):
+
 
 |league|gameid|date|position|side|result|killsat15|assistsat15|opp_killsat15|opp_assistsat15|gamelength
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
