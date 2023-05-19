@@ -41,6 +41,10 @@ We additionally created 4 different columns. The first two were **Kill_diff** an
 
 |league|gameid|date|position|side|result|killsat15|assistsat15|opp_killsat15|opp_assistsat15|gamelength
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-
+|34|LPL	8401-8401_game_1|2022-01-10 09:24:26|team|Blue|1|NaN|NaN|NaN|NaN|1365|
+|35|LPL	8401-8401_game_1|2022-01-10 09:24:26|team|Red|0|NaN|NaN|NaN|NaN|1365|
+|58|LPL	8401-8401_game_2|2022-01-10 10:09:22|team|Blue|1|NaN|NaN|NaN|NaN|1444|
+|59|LPL	8401-8401_game_2|2022-01-10 10:09:22|team|Red|0|NaN|NaN|NaN|NaN|1444|
+|82|LPL	8402-8402_game_1|2022-01-10 11:26:11|team|Blue|1|NaN|NaN|NaN|NaN|1893|
 
 
