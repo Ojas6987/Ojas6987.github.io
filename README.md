@@ -51,9 +51,20 @@ Here's what the cleaned table looks like (first couple of rows):
 
 ---
 
-We then proceeded to do some exploratory analysis of the data, specificially focusing on the columns we were going to use. Here is a histogram of the **Killdiff** distribution:
+We then proceeded to do some exploratory analysis of the data, specificially focusing on the columns we were going to use. 
+
+# Univariate Analysis #
+Here is a histogram of the **Killdiff** distribution:
+
 <iframe src="assets/kill-difference-distribution.html" width=800 height=600 frameBorder=0></iframe>
 
+This plot shows the overall distrubtion of the difference of kills at 15 minutes between two teams throughout the dataset. We would expect the data to look normal since each positive kill differnce has a corresponding negative difference. This histogram showed us that our data and new columns were working as expected and we had cleaned appropriately. 
+
+# Bivariate Analysis #
+We then wanted to do a simple explatory analysis of how win rate increases as the kill difference increases. We did some additional cleaning for this, removing repetitive date by focusing only on positive kill differences. 
+
+Here is a bar graph representing the relationship:
+<iframe src="assets/kill-diff-win-rate.html" width=800 height=600 frameBorder=0></iframe>
 
 ## Assessment of Missingness ##
 As is clearly seen from the head of the cleaned table, there seem to be plenty of null values. Specifically, both the killsat15 and assistsat15 seem to have a large number of null values, even when there is other data collected about that specific game, such as the result. We knew that having this many null values was going to be an issue when dealing with the "at15" data, so we decided to analyze this further. Initially, we figured that these data were simply null because that game did not last 15 minutes, which made intuitive sense. However, when querying the dataset for games shorter than 15 minutes, we found no data. Upon researching this further, we learned that no professionaly game has been shorter than 18 minutes, ruling out the possibility that the data were missing because of the game length. The next possibility we figured was that these data were missing simply because they were not recorded for these games. This would make the data **NMAR**. We believed that they were NMAR as the missingness of these columns simply depended on the "at15" values itself: some games simply did not care about this stat enough to record it, focusing on only general data such as overall kills and assists, which were present in the larger, uncleaned dataset even when the "at15" columns were null. 
