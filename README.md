@@ -65,13 +65,13 @@ We then wanted to do a simple explatory analysis of how win rate increases as th
 
 We decided to create a grouped table to represent this, grouping by every type of positive kill difference to find the mean wins for each kill difference. Here's the head of the table: 
 
-|   Kill_diff |   result |   killsat15 |   assistsat15 |   opp_killsat15 |   opp_assistsat15 |   gamelength |   Assist_diff |   pos_kill |   pos_ass |
-|------------:|---------:|------------:|--------------:|----------------:|------------------:|-------------:|--------------:|-----------:|----------:|
-|           0 | 0.5      |     2.61859 |       4.30929 |         2.61859 |           4.30929 |      2012.15 |       0       |          0 |  0.362179 |
-|           1 | 0.570513 |     3.30128 |       5.57532 |         2.30128 |           3.7516  |      2008.55 |       1.82372 |          1 |  0.754808 |
-|           2 | 0.745726 |     4.15812 |       6.92094 |         2.15812 |           3.63034 |      2001.08 |       3.2906  |          1 |  0.899573 |
-|           3 | 0.7557   |     5.08795 |       9.06189 |         2.08795 |           3.52117 |      1930.24 |       5.54072 |          1 |  0.960912 |
-|           4 | 0.836283 |     6.07965 |      10.4204  |         2.07965 |           3.44248 |      1881.09 |       6.97788 |          1 |  0.964602 |
+|    |   Kill_diff |   result |   killsat15 |   assistsat15 |   opp_killsat15 |   opp_assistsat15 |   gamelength |   Assist_diff |   pos_kill |   pos_ass |   pos_kill_assist |
+|---:|------------:|---------:|------------:|--------------:|----------------:|------------------:|-------------:|--------------:|-----------:|----------:|------------------:|
+|  0 |           0 | 0.5      |     2.61859 |       4.30929 |         2.61859 |           4.30929 |      2012.15 |       0       |          0 |  0.362179 |          0.362179 |
+|  1 |           1 | 0.570513 |     3.30128 |       5.57532 |         2.30128 |           3.7516  |      2008.55 |       1.82372 |          1 |  0.754808 |          0.863782 |
+|  2 |           2 | 0.745726 |     4.15812 |       6.92094 |         2.15812 |           3.63034 |      2001.08 |       3.2906  |          1 |  0.899573 |          0.963675 |
+|  3 |           3 | 0.7557   |     5.08795 |       9.06189 |         2.08795 |           3.52117 |      1930.24 |       5.54072 |          1 |  0.960912 |          0.993485 |
+|  4 |           4 | 0.836283 |     6.07965 |      10.4204  |         2.07965 |           3.44248 |      1881.09 |       6.97788 |          1 |  0.964602 |          0.995575 |
 
 Here is a bar graph representing the relationship:
 <iframe src="assets/kill-diff-win-rate.html" width=800 height=600 frameBorder=0></iframe>
@@ -107,7 +107,15 @@ The results make it evident that not only does league have a clear effect on nul
 
 We tested to see if the distrubtion of league when **killsat15** is null is the same as when it's not null, finding a p-value of exactly **0.0**, in line with what we found earlier in the table and bar graph. Essentially, only one league affects our table with null values, and we really only have to worry about the "LPL" league. 
 
+Here's a plot representing our permutation test for the **league** column:
+
+<iframe src="assets/miss-perm.html" width=800 height=600 frameBorder=0></iframe>
+
 We also did one more test to see if the result was also affected by null values. Running a similar permutation test as before, we came to a p-value of **0.712**, illustrating that knowing the result did not say anything about the missingness of 'at15' data. With this in mind, we proceeded to our actual hypothesis test knowing we only had to handle "LPL" data. 
+
+Here's a plot for the **result** permutation test:
+
+<iframe src="assets/perm_result.html" width=800 height=600 frameBorder=0></iframe>
 
 ---
 
@@ -115,15 +123,18 @@ We also did one more test to see if the result was also affected by null values.
 After assessing the missing values for **killsat15** and **assistsat15**, we concluded that only the "LPL" league contained these missing values. Therefore, before our test, we decided to simply not consider LPL data for our test, as we had enough data from other leagues. Finally, we were prepared for our actual test. Again, here is our central question:
 **How impactful is an early lead in kills and assists in league of legends?**
 In order to answer this question, we developed our null and alternate hypotheses:
-**Ho**: There is no difference between the win rate for teams leading in kills/assists at 15 minutes and the win rate for teams behind in kills/assists at 15 minutes.
-**Ha**: Teams leading in kills/assists at 15 minutes have a higher win rate than teams behind in kills/assists at 15 minutes. 
+**Ho**: There is no difference between the win rate for teams leading in kills and assists at 15 minutes and the win rate for teams behind in kills and assists at 15 minutes.
+**Ha**: Teams leading in kills and assists at 15 minutes have a higher win rate than teams behind in kills/assists at 15 minutes. 
 (Win rate is simply the avg. number of wins here)
+
 We decided that a directional hypothesis was best to determine whether there was a specific **advantage** to leading in wins/kills at the 15 minute timeframe. We essentiallly wanted to test whether or not teams leading in this categories around halfway throught the game hang on to win the game at a higher rate. 
 
-Our test statistic here is a **difference of mean** specifically for wins. This was the most intuitive statistic as we wanted to compare win rate, and mean wins made the most sense for that. 
+Our test statistic here is a **difference of mean** specifically for wins. This was the most intuitive statistic as we wanted to compare win rate, and mean wins made the most sense for that. We recorded this statistic to be **0.368**.
 
 After conduction a hypothesis with 1000 simulations, we came to a very strong p-value of exactly 0.00. At a significance level of 0.05, or any significance level, we reject our null hypothesis. There seems to be strong evidence that teams leading at both kills and assists at 15 minutes win at a higher rate. 
 
-The p-value we reported was in fact the same for both kills and assists, as we ran similar basic hypothesis tests for both and found the same result. 
+This a plot that represents our hypothesis test, showing clearly the observed difference in win rate between teams with a positive kill/assist difference and those with a negative, as well as the simulated differences: 
 
-These conclusions also make intuitive sense. When leading in kills/assists, a teams is in essence "winning the game" and likely has a much higher chance of just hanging on to win the game in the next 15 minutes. 
+<iframe src="assets/hyp.html" width=800 height=600 frameBorder=0></iframe>
+
+These conclusions also make intuitive sense. When leading in kills and assists, a teams is in essence "winning the game" and likely has a much higher chance of just hanging on to win the game in the next 15 minutes. 
