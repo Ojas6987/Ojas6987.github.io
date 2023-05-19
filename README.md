@@ -35,19 +35,19 @@ We included result, gameid, date, position, and league to retain some general in
 **"LCK","LPL","LEC", "LCS", "PCS", "VCS", "CBLOL", "LJL", "LLA"**
 Each represents a specific acronym for their respective league. Next, we only kept data that was useful for teams. We dropped all of the individual player data from the table, and kept the team summary statistics. 
 
-We additionally created 4 different columns. The first two were **Kill_diff** and **Assist_diff**. These two columns represent the killsat15 statistic for the team-opp_killsat15, and the same for assists. Since we want to know if having more kills/assists than your opponent at 15 minutes makes it more likely to win, we need to find the difference between kills for both teams. We also wanted to generalize this better for our future statistical tests, so we created two additonal columns: **pos_kill** and **pos_ass**, which are simply boolean values that indicate whether a team has more kills/assists than their opponent at 15 mins.
+We additionally created 4 different columns. The first two were **Kill_diff** and **Assist_diff**. These two columns represent the killsat15 statistic for the team-opp_killsat15, and the same for assists. Since we want to know if having more kills/assists than your opponent at 15 minutes makes it more likely to win, we need to find the difference between kills for both teams. We also wanted to generalize this better for our future statistical tests, so we created two additonal columns: **pos_kill** and **pos_ass**, which are simply boolean values that indicate whether a team has more kills/assists than their opponent at 15 mins. We then combined kills and assists to create one statistic, creating the column **pos_kill_assist** by adding **Kill_diff** and **Ass_diff** and seeing if there was a net positive or not. This is the key column we will be using for our analysis. 
 
 ---
 Here's what the cleaned table looks like (first couple of rows):
 
 
-|league|gameid|date|position|side|result|killsat15|assistsat15|opp_killsat15|opp_assistsat15|gamelength
-| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-|34|LPL	8401-8401_game_1|2022-01-10 09:24:26|team|Blue|1|NaN|NaN|NaN|NaN|1365|
-|35|LPL	8401-8401_game_1|2022-01-10 09:24:26|team|Red|0|NaN|NaN|NaN|NaN|1365|
-|58|LPL	8401-8401_game_2|2022-01-10 10:09:22|team|Blue|1|NaN|NaN|NaN|NaN|1444|
-|59|LPL	8401-8401_game_2|2022-01-10 10:09:22|team|Red|0|NaN|NaN|NaN|NaN|1444|
-|82|LPL	8402-8402_game_1|2022-01-10 11:26:11|team|Blue|1|NaN|NaN|NaN|NaN|1893|
+|    | league   | gameid           | date                | position   | side   |   result |   killsat15 |   assistsat15 |   opp_killsat15 |   opp_assistsat15 |   gamelength |   Kill_diff |   Assist_diff | pos_kill   | pos_ass   | pos_kill_assist   |
+|---:|:---------|:-----------------|:--------------------|:-----------|:-------|---------:|------------:|--------------:|----------------:|------------------:|-------------:|------------:|--------------:|:-----------|:----------|:------------------|
+| 34 | LPL      | 8401-8401_game_1 | 2022-01-10 09:24:26 | team       | Blue   |        1 |         nan |           nan |             nan |               nan |         1365 |         nan |           nan | False      | False     | False             |
+| 35 | LPL      | 8401-8401_game_1 | 2022-01-10 09:24:26 | team       | Red    |        0 |         nan |           nan |             nan |               nan |         1365 |         nan |           nan | False      | False     | False             |
+| 58 | LPL      | 8401-8401_game_2 | 2022-01-10 10:09:22 | team       | Blue   |        1 |         nan |           nan |             nan |               nan |         1444 |         nan |           nan | False      | False     | False             |
+| 59 | LPL      | 8401-8401_game_2 | 2022-01-10 10:09:22 | team       | Red    |        0 |         nan |           nan |             nan |               nan |         1444 |         nan |           nan | False      | False     | False             |
+| 82 | LPL      | 8402-8402_game_1 | 2022-01-10 11:26:11 | team       | Blue   |        1 |         nan |           nan |             nan |               nan |         1893 |         nan |           nan | False      | False     | False             |
 
 ---
 
