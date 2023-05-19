@@ -115,7 +115,7 @@ We also did one more test to see if the result was also affected by null values.
 
 Here's a plot for the **result** permutation test:
 
-<iframe src="assets/perm_result.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/result.html" width=800 height=600 frameBorder=0></iframe>
 
 ---
 
