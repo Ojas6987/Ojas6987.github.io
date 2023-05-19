@@ -86,6 +86,7 @@ As is clearly seen from the head of the cleaned table, there seem to be plenty o
 An extra piece of information that would likely help address this issue is whether or not the league that the game was played in affected whether or not the data were null. Basically, did some leagues simply not record "at15" data? This would make the data **MAR** as the missingness of the "at15" columns could now be explained by and dependent on another column, **league**. 
 
 We then decided to see whether or not the impact of type of league was present on the null values through data manipulation. Specifically, we grouped by table and checked the null values for each league. We made 1 represent null values, and 0 non-null, grouped by league, and then found the mean of null values. Here are the results: 
+
 | league   |   is_missing |
 |:---------|-------------:|
 | CBLOL    |            0 |
