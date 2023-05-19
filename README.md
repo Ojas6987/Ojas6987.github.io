@@ -4,7 +4,7 @@ This is a analysis of League of Legends wins based on whether or not teams are l
 ---
 
 ## Introduction
-The League of Legends dataset we use in this analysis specifically comes from 2022, titled the "League of Legends Competitive Matches" dataset. This datasets specifically looks at several competitive matches from several leagues throughout the world, collecting important stats such as kils, assists, etc. as well as who the players, teams, and winners were. The dataset was large, containing 123 columns and FILL IN rows.
+The League of Legends dataset we use in this analysis specifically comes from 2022, titled the "League of Legends Competitive Matches" dataset. This datasets specifically looks at several competitive matches from several leagues throughout the world, collecting important stats such as kils, assists, etc. as well as who the players, teams, and winners were. The dataset was large, containing 123 columns and 149,400 rows.
 
 With this dataset, we specifically sought to find out when players gain an edge in the game. Essentially, we were looking at how likely a team would be to win a game based at a certain point in the game. With this in mind, we reached the following question we wanted to address:
 
@@ -84,6 +84,29 @@ The plot clearly illustrates that as the overall positive kill difference increa
 As is clearly seen from the head of the cleaned table, there seem to be plenty of null values. Specifically, both the killsat15 and assistsat15 seem to have a large number of null values, even when there is other data collected about that specific game, such as the result. We knew that having this many null values was going to be an issue when dealing with the "at15" data, so we decided to analyze this further. Initially, we figured that these data were simply null because that game did not last 15 minutes, which made intuitive sense. However, when querying the dataset for games shorter than 15 minutes, we found no data. Upon researching this further, we learned that no professionaly game has been shorter than 18 minutes, ruling out the possibility that the data were missing because of the game length. The next possibility we figured was that these data were missing simply because they were not recorded for these games. This would make the data **NMAR**. We believed that they were NMAR as the missingness of these columns simply depended on the "at15" values itself: some games simply did not care about this stat enough to record it, focusing on only general data such as overall kills and assists, which were present in the larger, uncleaned dataset even when the "at15" columns were null. 
 
 An extra piece of information that would likely help address this issue is whether or not the league that the game was played in affected whether or not the data were null. Basically, did some leagues simply not record "at15" data? This would make the data **MAR** as the missingness of the "at15" columns could now be explained by and dependent on another column, **league**. 
+
+We then decided to see whether or not the impact of type of league was present on the null values through data manipulation. Specifically, we grouped by table and checked the null values for each league. We made 1 represent null values, and 0 non-null, grouped by league, and then found the mean of null values. Here are the results: 
+| league   |   is_missing |
+|:---------|-------------:|
+| CBLOL    |            0 |
+| LCK      |            0 |
+| LCS      |            0 |
+| LEC      |            0 |
+| LJL      |            0 |
+| LLA      |            0 |
+| LPL      |            1 |
+| PCS      |            0 |
+| VCS      |            0 |
+
+Here is a bar graph that illustrates the same values but using the count of null values: 
+
+<iframe src="assets/miss-per-league.html" width=800 height=600 frameBorder=0></iframe>
+
+The results make it evident that not only does league have a clear effect on null values, but specifically one league, "LPL", contains all of the null values for the  data we are using. Essentially, our conclusions were correct, LPL simply does not collect "at15" data. In order to confirm these results, we ran a simple permutation test to determine that this data was truly **MAR** and not **MCAR**. 
+
+We tested to see if the distrubtion of league when **killsat15** is null is the same as when it's not null, finding a p-value of exactly **0.0**, in line with what we found earlier in the table and bar graph. Essentially, only one league affects our table with null values, and we really only have to worry about the "LPL" league. 
+
+We also did one more test to see if the result was also affected by null values. Running a similar permutation test as before, we came to a p-value of **0.712**, illustrating that knowing the result did not say anything about the missingness of 'at15' data. With this in mind, we proceeded to our actual hypothesis test knowing we only had to handle "LPL" data. 
 
 ---
 
